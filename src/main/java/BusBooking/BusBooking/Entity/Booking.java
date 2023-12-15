@@ -1,9 +1,11 @@
 package BusBooking.BusBooking.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
@@ -11,7 +13,8 @@ import java.util.Set;
 @Table(name = "bookings")
 @Data
 @NoArgsConstructor
-public class Booking {
+public class Booking implements Serializable
+{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -33,6 +36,7 @@ public class Booking {
 
     @Column(name = "updated_at")
     private Date updatedAt;
-    @OneToMany(mappedBy = "booking", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "booking", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JsonIgnore
     private Set<Passenger> passengers;
 }

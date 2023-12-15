@@ -1,6 +1,5 @@
 package BusBooking.BusBooking.Service.serviceImpp;
 
-import BusBooking.BusBooking.DTO.LoginDtoReq;
 import BusBooking.BusBooking.DTO.Request.CreateProfileDtoReq;
 import BusBooking.BusBooking.DTO.Request.ProfileUpdate;
 import BusBooking.BusBooking.DTO.Response.LoginDtoResp;
@@ -15,8 +14,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 public class UserServiceImpp implements UserService {

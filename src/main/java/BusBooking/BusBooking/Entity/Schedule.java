@@ -1,10 +1,12 @@
 package BusBooking.BusBooking.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
@@ -12,19 +14,14 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Schedule {
+public class Schedule implements Serializable {
     @Id
     private Integer id;
-    @ManyToOne
-    @JoinColumn(name = "bus_id", referencedColumnName = "id")
-    private Bus bus;
-    @ManyToOne
-    @JoinColumn(name = "route_id", referencedColumnName = "id")
-    private Route route;
-
-
     private Date departureTime;
-
+    private String origin;
+    private String destination;
+    private String duration;
+    private Integer distance;
     @Column(name = "arrival_time")
     private Date arrivalTime;
     @Column(name = "price")
@@ -33,6 +30,19 @@ public class Schedule {
     private Date createdAt;
     @Column(name = "updated_at")
     private Date updatedAt;
-    @OneToMany(mappedBy = "schedule", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "schedule", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
     private Set<Booking> bookings;
+
+
+    @ManyToOne
+    @JoinColumn(name = "bus_id", referencedColumnName = "id")
+    @JsonIgnore
+    private Bus bus;
+
+
+    @ManyToOne
+    @JsonIgnore
+    @JoinColumn(name = "adminId")
+    private BusCompanyAdmin busCompanyAdmin;
 }

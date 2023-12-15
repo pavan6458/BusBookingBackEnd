@@ -9,9 +9,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @AllArgsConstructor
@@ -36,4 +34,7 @@ public class BusCompanyAdmin {
     @OneToMany(mappedBy = "busCompanyAdmin",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<Bus> busList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "busCompanyAdmin",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private Set<Schedule> schedules = new HashSet<>();
 }
