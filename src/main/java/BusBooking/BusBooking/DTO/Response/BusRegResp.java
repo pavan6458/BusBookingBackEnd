@@ -13,5 +13,5 @@ public class BusRegResp {
     private String busName;
     private Integer totalSeats;
     private String busType;
-    private BusOperator busOperator;
+    private Integer busOperatorId;
 }

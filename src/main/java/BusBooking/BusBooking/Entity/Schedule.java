@@ -1,47 +1,52 @@
 package BusBooking.BusBooking.Entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor
 @Data
+@NoArgsConstructor
+
 public class Schedule implements Serializable {
     @Id
     private Integer id;
+
     private Date departureTime;
     private String origin;
     private String destination;
     private String duration;
     private Integer distance;
+
     @Column(name = "arrival_time")
     private Date arrivalTime;
+
     @Column(name = "price")
     private Double price;
+
     @Column(name = "created_at")
     private Date createdAt;
+
     @Column(name = "updated_at")
     private Date updatedAt;
+
     @OneToMany(mappedBy = "schedule", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonIgnore
+    @JsonManagedReference
     private Set<Booking> bookings;
 
-
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "bus_id", referencedColumnName = "id")
-    @JsonIgnore
+    @JsonManagedReference
     private Bus bus;
 
-
-    @ManyToOne
-    @JoinColumn(name = "adminId")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "admin_id")
+    @JsonBackReference
     private BusCompanyAdmin busCompanyAdmin;
 }

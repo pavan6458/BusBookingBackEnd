@@ -10,7 +10,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Repository
-public interface ScheduleRepository extends JpaRepository<Schedule,Integer> {
+public interface ScheduleRepository extends JpaRepository<Schedule, Integer> {
     @Query("SELECT e FROM Schedule e " +
             "WHERE e.origin = :origin " +
             "AND e.destination = :destination " +
@@ -20,4 +20,6 @@ public interface ScheduleRepository extends JpaRepository<Schedule,Integer> {
             @Param("destination") String destination,
             @Param("arrivalDate") LocalDate arrivalDate
     );
+
+    List<Schedule> findByBusCompanyAdminId(Integer adminId);
 }

@@ -1,33 +1,33 @@
 package BusBooking.BusBooking.Entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.*;
-
+import java.io.Serializable;
 import java.util.Set;
+
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
-public class Bus {
+public class Bus implements Serializable {
     @Id
     private Integer id;
     private String busName;
     private Integer totalSeats;
     private String busType;
-    @ManyToOne
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "operator_id", referencedColumnName = "id")
+    @JsonManagedReference
     private BusOperator busOperator;
 
-    @ManyToOne
-    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "admin_id")
+    @JsonManagedReference
     private BusCompanyAdmin busCompanyAdmin;
 
+    @OneToMany(mappedBy = "bus", cascade = CascadeType.ALL, orphanRemoval = false)
+    @JsonManagedReference
+    private Set<Schedule> schedules;
 }

@@ -1,16 +1,21 @@
 package BusBooking.BusBooking.Entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
 @Table(name = "passengers")
-@Data
+@Setter
+@Getter
 @NoArgsConstructor
-public class Passenger {
+public class Passenger implements Serializable {
     @Id
     private Long id;
 
@@ -29,7 +34,8 @@ public class Passenger {
     @Column(name = "updated_at")
     private Date updatedAt;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "booking_id", referencedColumnName = "id")
+    @JsonBackReference
     private Booking booking;
 }

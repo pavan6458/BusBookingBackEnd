@@ -13,5 +13,5 @@ public class BookingRegResp {
     private Double totalAmount;
     private String status;
     private Schedule schedule;
-    private User user;
+    private UserBasicDto user;
 }

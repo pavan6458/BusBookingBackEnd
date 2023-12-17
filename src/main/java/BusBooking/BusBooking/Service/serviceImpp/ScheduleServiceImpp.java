@@ -2,7 +2,7 @@ package BusBooking.BusBooking.Service.serviceImpp;
 
 import BusBooking.BusBooking.DTO.Request.BusSearchReqDto;
 import BusBooking.BusBooking.DTO.Request.ScheduleRegReq;
-import BusBooking.BusBooking.DTO.Response.ScheduleRegResp;
+import BusBooking.BusBooking.DTOs.ScheduleDTo;
 import BusBooking.BusBooking.Entity.Bus;
 import BusBooking.BusBooking.Entity.BusCompanyAdmin;
 import BusBooking.BusBooking.Entity.Schedule;
@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class ScheduleServiceImpp implements ScheduleService {
@@ -36,7 +37,7 @@ public class ScheduleServiceImpp implements ScheduleService {
     }
 
     @Override
-    public ScheduleRegResp createSchedule(ScheduleRegReq scheduleRegReq) {
+    public ScheduleDTo createSchedule(ScheduleRegReq scheduleRegReq) {
         Schedule schedule = new Schedule();
         schedule.setId(GenerateId.BuildId());
         schedule.setDepartureTime(scheduleRegReq.getDepartureTime());
@@ -56,7 +57,7 @@ public class ScheduleServiceImpp implements ScheduleService {
     }
 
     @Override
-    public ScheduleRegResp updatedSchedule(Integer scheduleId, ScheduleRegReq scheduleRegReq) {
+    public ScheduleDTo updatedSchedule(Integer scheduleId, ScheduleRegReq scheduleRegReq) {
         Schedule schedule = scheduleRepository.findById(scheduleId).orElseThrow(() -> new DataNotFounException("Schedule not  found with id " + scheduleId));
         schedule.setDepartureTime(scheduleRegReq.getDepartureTime());
         schedule.setArrivalTime(scheduleRegReq.getArrivalTime());
@@ -72,21 +73,22 @@ public class ScheduleServiceImpp implements ScheduleService {
     }
 
     @Override
-    public Set<ScheduleRegResp> getAllSchedule(Integer adminId) {
-        BusCompanyAdmin busCompanyAdmin = busCompanyAdminRepository.findById(adminId).orElseThrow(() -> new DataNotFounException("Admin not found with id " + adminId));
-        Set<ScheduleRegResp> collect = busCompanyAdmin.getSchedules().stream().map(this::convertScheduleToScheduleRegResp).collect(Collectors.toSet());
+    public Set<ScheduleDTo> getAllSchedule(Integer adminId) {
+        List<Schedule> scheduleList = scheduleRepository.findByBusCompanyAdminId(adminId);
+
+        Set<ScheduleDTo> collect = scheduleList.stream().map((list) -> convertScheduleToScheduleRegResp(list)).collect(Collectors.toSet());
         return collect;
     }
 
     @Override
-    public ScheduleRegResp getSchudleById(Integer sheduleId) {
+    public ScheduleDTo getSchudleById(Integer sheduleId) {
         Schedule schedule = scheduleRepository.findById(sheduleId)
                 .orElseThrow(() -> new DataNotFounException("Schedule not found with id" + sheduleId));
         return convertScheduleToScheduleRegResp(schedule);
     }
 
     @Override
-    public ScheduleRegResp deleteSchudule(Integer sheduleId) {
+    public ScheduleDTo deleteSchudule(Integer sheduleId) {
         Schedule schedule = scheduleRepository.findById(sheduleId)
                 .orElseThrow(() -> new DataNotFounException("Schedule not found with id" + sheduleId));
         scheduleRepository.delete(schedule);
@@ -99,13 +101,13 @@ public class ScheduleServiceImpp implements ScheduleService {
     }
 
     @Override
-    public Set<ScheduleRegResp> searchBus(BusSearchReqDto busSearchReqDto) {
+    public Set<ScheduleDTo> searchBus(BusSearchReqDto busSearchReqDto) {
         List<Schedule> searchedBuses = scheduleRepository.findByOriginAndDestinationAndArrivalDate(busSearchReqDto.getOrigin(), busSearchReqDto.getDestination(), busSearchReqDto.getArrivalTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-        Set<ScheduleRegResp> collect = searchedBuses.stream().map((items) -> convertScheduleToScheduleRegResp(items)).collect(Collectors.toSet());
+        Set<ScheduleDTo> collect = searchedBuses.stream().map((items) -> convertScheduleToScheduleRegResp(items)).collect(Collectors.toSet());
         return collect;
     }
 
-    public ScheduleRegResp convertScheduleToScheduleRegResp(Schedule schedule){
-        return mapper.map(schedule,ScheduleRegResp.class);
+    public ScheduleDTo convertScheduleToScheduleRegResp(Schedule schedule){
+        return mapper.map(schedule,ScheduleDTo.class);
     }
 }

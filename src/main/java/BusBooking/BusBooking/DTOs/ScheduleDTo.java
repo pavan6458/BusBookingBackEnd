@@ -1,12 +1,11 @@
-package BusBooking.BusBooking.DTO.Response;
+package BusBooking.BusBooking.DTOs;
 
-import BusBooking.BusBooking.Entity.Bus;
 import lombok.Data;
 
 import java.util.Date;
 
 @Data
-public class ScheduleRegResp {
+public class ScheduleDTo {
     private Integer id;
     private Date arrivalTime;
     private Date departureTime;
@@ -14,6 +13,6 @@ public class ScheduleRegResp {
     private String duration;
     private String origin;
     private String destination;
-    private Bus bus;
+    private Integer busId;
 
 }

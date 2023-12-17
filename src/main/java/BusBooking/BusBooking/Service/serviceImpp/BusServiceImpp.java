@@ -75,8 +75,7 @@ public class BusServiceImpp implements BusService {
 
     @Override
     public List<BusRegResp> getAllBus(Integer adminId) {
-        BusCompanyAdmin busCompanyAdmin = busCompanyAdminRepository.findById(adminId).orElseThrow(() -> new DataNotFounException("admin not found with id " + adminId));
-        List<Bus> busList = busCompanyAdmin.getBusList();
+        List<Bus> busList = busRepository.findByBusCompanyAdminId(adminId);
         List<BusRegResp> collect = busList.stream().map((list) -> BusTOBusRegResp(list)).collect(Collectors.toList());
         return collect;
     }

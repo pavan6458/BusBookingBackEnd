@@ -2,17 +2,17 @@ package BusBooking.BusBooking.Service;
 
 import BusBooking.BusBooking.DTO.Request.BusSearchReqDto;
 import BusBooking.BusBooking.DTO.Request.ScheduleRegReq;
-import BusBooking.BusBooking.DTO.Response.ScheduleRegResp;
+import BusBooking.BusBooking.DTOs.ScheduleDTo;
 
 import java.util.Set;
 
 public interface ScheduleService {
-    public ScheduleRegResp createSchedule(ScheduleRegReq scheduleRegReq);
-    public ScheduleRegResp updatedSchedule(Integer sheduleId , ScheduleRegReq scheduleRegReq);
-    public Set<ScheduleRegResp> getAllSchedule(Integer adminId);
-    public ScheduleRegResp getSchudleById(Integer sheduleId);
-    public ScheduleRegResp deleteSchudule(Integer sheduleId);
+    public ScheduleDTo createSchedule(ScheduleRegReq scheduleRegReq);
+    public ScheduleDTo updatedSchedule(Integer sheduleId , ScheduleRegReq scheduleRegReq);
+    public Set<ScheduleDTo> getAllSchedule(Integer adminId);
+    public ScheduleDTo getSchudleById(Integer sheduleId);
+    public ScheduleDTo deleteSchudule(Integer sheduleId);
 
-    public Set<ScheduleRegResp> searchBus(BusSearchReqDto busSearchReqDto);
+    public Set<ScheduleDTo> searchBus(BusSearchReqDto busSearchReqDto);
 
 }

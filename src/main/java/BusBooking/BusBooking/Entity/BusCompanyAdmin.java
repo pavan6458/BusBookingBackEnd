@@ -7,14 +7,14 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.io.Serializable;
 import java.util.*;
 
 @Entity
-@AllArgsConstructor
 @NoArgsConstructor
 @Setter
 @Getter
-public class BusCompanyAdmin {
+public class BusCompanyAdmin implements Serializable {
     @Id
     private Integer id;
     private String companyName;
@@ -35,5 +35,6 @@ public class BusCompanyAdmin {
     private List<Bus> busList = new ArrayList<>();
 
     @OneToMany(mappedBy = "busCompanyAdmin",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JsonManagedReference
     private Set<Schedule> schedules = new HashSet<>();
 }
