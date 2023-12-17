@@ -1,6 +1,5 @@
 package BusBooking.BusBooking.Controller;
 
-import BusBooking.BusBooking.DTO.LoginDtoReq;
 import BusBooking.BusBooking.DTO.Request.CreateProfileDtoReq;
 import BusBooking.BusBooking.DTO.Request.MobileNoReq;
 import BusBooking.BusBooking.DTO.Request.ProfileUpdate;
@@ -12,7 +11,6 @@ import BusBooking.BusBooking.Utils.ResponseGenerater;
 import BusBooking.BusBooking.Utils.SecurityConstants;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

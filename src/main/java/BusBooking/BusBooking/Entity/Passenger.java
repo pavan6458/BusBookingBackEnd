@@ -13,9 +13,7 @@ import java.util.Date;
 public class Passenger {
     @Id
     private Long id;
-    @ManyToOne
-    @JoinColumn(name = "booking_id", referencedColumnName = "id")
-    private Booking booking;
+
     @Column(name = "first_name")
     private String firstName;
     @Column(name = "last_name")
@@ -30,4 +28,8 @@ public class Passenger {
     private Date createdAt;
     @Column(name = "updated_at")
     private Date updatedAt;
+
+    @ManyToOne
+    @JoinColumn(name = "booking_id", referencedColumnName = "id")
+    private Booking booking;
 }

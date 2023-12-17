@@ -11,8 +11,8 @@ import lombok.*;
 
 import java.util.Set;
 @Entity
-@Setter
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Bus {
@@ -26,6 +26,7 @@ public class Bus {
     private BusOperator busOperator;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "admin_id")
     private BusCompanyAdmin busCompanyAdmin;
 

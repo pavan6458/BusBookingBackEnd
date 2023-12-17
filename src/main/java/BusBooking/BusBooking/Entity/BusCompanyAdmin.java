@@ -3,20 +3,17 @@ package BusBooking.BusBooking.Entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Setter
+@Getter
 public class BusCompanyAdmin {
     @Id
     private Integer id;
@@ -36,4 +33,7 @@ public class BusCompanyAdmin {
     @OneToMany(mappedBy = "busCompanyAdmin",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<Bus> busList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "busCompanyAdmin",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private Set<Schedule> schedules = new HashSet<>();
 }
