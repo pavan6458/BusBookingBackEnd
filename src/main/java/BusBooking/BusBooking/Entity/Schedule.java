@@ -42,7 +42,6 @@ public class Schedule implements Serializable {
 
 
     @ManyToOne
-    @JsonIgnore
     @JoinColumn(name = "adminId")
     private BusCompanyAdmin busCompanyAdmin;
 }

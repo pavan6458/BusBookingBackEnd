@@ -11,7 +11,8 @@ import lombok.*;
 
 import java.util.Set;
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Bus {
