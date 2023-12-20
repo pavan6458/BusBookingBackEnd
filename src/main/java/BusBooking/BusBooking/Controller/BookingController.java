@@ -40,4 +40,12 @@ public class BookingController {
         return ResponseGenerater.ResponseBuilder(HttpStatus.OK,"Booked fetched successfully",bookingById);
 
     }
+    @DeleteMapping("/{bookingID}/delete")
+
+    public ResponseEntity<Object> deleteBookingByID(@PathVariable(name="bookingID")Integer bookingID)
+    {
+        BookingRegResp deletedResponse = bookingService.cancaelBookingById(bookingID);
+        return ResponseGenerater.ResponseBuilder(HttpStatus.OK,"Booked cancelled successfully",deletedResponse);
+
+    }
 }

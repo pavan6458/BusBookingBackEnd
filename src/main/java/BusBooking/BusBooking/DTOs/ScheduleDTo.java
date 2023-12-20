@@ -1,5 +1,6 @@
 package BusBooking.BusBooking.DTOs;
 
+import BusBooking.BusBooking.DTO.Response.BusRegResp;
 import lombok.Data;
 
 import java.util.Date;
@@ -13,6 +14,5 @@ public class ScheduleDTo {
     private String duration;
     private String origin;
     private String destination;
-    private Integer busId;
-
+    private BusRegResp bus;
 }

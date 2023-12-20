@@ -64,11 +64,11 @@ public class BookingServiceImpp implements BookingService {
 
     @Override
     public List<BookingRegResp> getAllBookings(Integer userId) {
-        User user = userRepository.findById(userId).orElseThrow(() -> new DataNotFounException("User not found with id " + userId));
-        List<Booking> booking = user.getBooking();
-        if(booking.size()>0)
+        List<Booking> userBookings = bookingRepository.findByUserId(userId);
+
+        if(userBookings.size()>0)
         {
-            List<BookingRegResp> collect = booking.stream().map((list) -> convertBookingToBookingRegResp(list)).collect(Collectors.toList());
+            List<BookingRegResp> collect = userBookings.stream().map((list) -> convertBookingToBookingRegResp(list)).collect(Collectors.toList());
             return collect;
         }
         else {

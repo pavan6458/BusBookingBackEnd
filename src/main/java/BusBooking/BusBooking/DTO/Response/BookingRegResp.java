@@ -1,5 +1,6 @@
 package BusBooking.BusBooking.DTO.Response;
 
+import BusBooking.BusBooking.DTOs.ScheduleDTo;
 import BusBooking.BusBooking.Entity.Schedule;
 import BusBooking.BusBooking.Entity.User;
 import jakarta.persistence.JoinColumn;
@@ -12,6 +13,6 @@ public class BookingRegResp {
     private Integer totalPassengers;
     private Double totalAmount;
     private String status;
-    private Schedule schedule;
-    private UserBasicDto user;
+    private ScheduleDTo schedule;
+    private BusRegResp userId;
 }

@@ -12,7 +12,7 @@ public interface ScheduleService {
     public Set<ScheduleDTo> getAllSchedule(Integer adminId);
     public ScheduleDTo getSchudleById(Integer sheduleId);
     public ScheduleDTo deleteSchudule(Integer sheduleId);
-
+    
     public Set<ScheduleDTo> searchBus(BusSearchReqDto busSearchReqDto);
 
 }

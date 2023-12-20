@@ -8,12 +8,13 @@ import lombok.*;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 @Entity
-@Data
+@Setter
+@Getter
 @NoArgsConstructor
-
 public class Schedule implements Serializable {
     @Id
     private Integer id;
@@ -42,11 +43,15 @@ public class Schedule implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "bus_id", referencedColumnName = "id")
-    @JsonManagedReference
+    @JsonBackReference
     private Bus bus;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "admin_id")
     @JsonBackReference
     private BusCompanyAdmin busCompanyAdmin;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private List<Passenger> passenger;
 }
