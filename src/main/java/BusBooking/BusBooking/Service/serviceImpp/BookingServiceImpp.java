@@ -1,8 +1,7 @@
 package BusBooking.BusBooking.Service.serviceImpp;
 
-import BusBooking.BusBooking.DTO.Request.BookingRegReq;
 import BusBooking.BusBooking.DTO.Response.BookingRegResp;
-import BusBooking.BusBooking.DTOs.BookingDTO;
+import BusBooking.BusBooking.DTO.BookingDTO;
 import BusBooking.BusBooking.Entity.Booking;
 import BusBooking.BusBooking.Entity.Schedule;
 import BusBooking.BusBooking.Entity.User;
@@ -18,7 +17,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service

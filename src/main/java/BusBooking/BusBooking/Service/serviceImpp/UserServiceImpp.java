@@ -8,6 +8,7 @@ import BusBooking.BusBooking.Entity.User;
 import BusBooking.BusBooking.Exception.DataNotFounException;
 import BusBooking.BusBooking.Exception.UserAlreadyExistsException;
 import BusBooking.BusBooking.Repository.UserRepository;
+import BusBooking.BusBooking.Service.ScheduleService;
 import BusBooking.BusBooking.Service.UserService;
 import BusBooking.BusBooking.Utils.GenerateId;
 import org.modelmapper.ModelMapper;
@@ -20,6 +21,7 @@ public class UserServiceImpp implements UserService {
     private UserRepository userRepository;
     private ModelMapper modelMapper;
     private PasswordEncoder passwordEncoder;
+
 
     @Autowired
     public UserServiceImpp(UserRepository userRepository, ModelMapper modelMapper, PasswordEncoder passwordEncoder) {

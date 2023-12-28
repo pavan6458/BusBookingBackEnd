@@ -1,8 +1,7 @@
 package BusBooking.BusBooking.Controller;
 
-import BusBooking.BusBooking.DTO.Request.BookingRegReq;
 import BusBooking.BusBooking.DTO.Response.BookingRegResp;
-import BusBooking.BusBooking.DTOs.BookingDTO;
+import BusBooking.BusBooking.DTO.BookingDTO;
 import BusBooking.BusBooking.Service.BookingService;
 import BusBooking.BusBooking.Utils.ResponseGenerater;
 import org.springframework.http.HttpStatus;

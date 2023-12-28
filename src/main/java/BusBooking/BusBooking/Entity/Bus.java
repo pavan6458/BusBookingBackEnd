@@ -16,7 +16,7 @@ public class Bus implements Serializable {
     private String busName;
     private Integer totalSeats;
     private String busType;
-
+    private String seatType;
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "operator_id", referencedColumnName = "id")
     @JsonManagedReference

@@ -2,7 +2,7 @@ package BusBooking.BusBooking.Service.serviceImpp;
 
 import BusBooking.BusBooking.DTO.Request.BusSearchReqDto;
 import BusBooking.BusBooking.DTO.Request.ScheduleRegReq;
-import BusBooking.BusBooking.DTOs.ScheduleDTo;
+import BusBooking.BusBooking.DTO.ScheduleDTo;
 import BusBooking.BusBooking.Entity.Bus;
 import BusBooking.BusBooking.Entity.BusCompanyAdmin;
 import BusBooking.BusBooking.Entity.Schedule;
@@ -20,7 +20,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 public class ScheduleServiceImpp implements ScheduleService {

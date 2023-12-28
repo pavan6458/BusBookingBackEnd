@@ -2,7 +2,7 @@ package BusBooking.BusBooking.Service;
 
 import BusBooking.BusBooking.DTO.Request.BusSearchReqDto;
 import BusBooking.BusBooking.DTO.Request.ScheduleRegReq;
-import BusBooking.BusBooking.DTOs.ScheduleDTo;
+import BusBooking.BusBooking.DTO.ScheduleDTo;
 
 import java.util.Set;
 

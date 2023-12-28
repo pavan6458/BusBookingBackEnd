@@ -1,14 +1,13 @@
 package BusBooking.BusBooking.Controller;
 
-import BusBooking.BusBooking.DTOs.PassangerDto;
-import BusBooking.BusBooking.DTOs.PassangerList;
+import BusBooking.BusBooking.DTO.PassangerDto;
+import BusBooking.BusBooking.DTO.PassangerList;
 import BusBooking.BusBooking.Service.PassangerService;
 import BusBooking.BusBooking.Utils.ResponseGenerater;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.Inet4Address;
 import java.util.List;
 
 @RestController
@@ -30,7 +29,15 @@ public class PassangersController {
     public ResponseEntity<Object> ListOfScheduledPassangers(@PathVariable (name = "scheduleId")Integer scheduleId)
     {
         List<PassangerList> passangerLists = passangerService.GetAllSchedulePassangersList(scheduleId);
-        return ResponseGenerater.ResponseBuilder(HttpStatus.CREATED, "Passangers add successfully", passangerLists);
+        return ResponseGenerater.ResponseBuilder(HttpStatus.OK, "List of Scheduled Passangers", passangerLists);
+
+    }
+
+    @GetMapping("/getByBookingId/{bookingid}")
+    public ResponseEntity<Object> getByBookingId(@PathVariable (name = "bookingid")Integer scheduleId)
+    {
+        List<PassangerList> passangerLists = passangerService.getPassangersByBookingId(scheduleId);
+        return ResponseGenerater.ResponseBuilder(HttpStatus.OK, "passangers fetched seccessfully", passangerLists);
 
     }
 }

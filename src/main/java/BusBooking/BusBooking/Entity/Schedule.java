@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -54,4 +55,8 @@ public class Schedule implements Serializable {
     @OneToMany(fetch = FetchType.LAZY)
     @JsonManagedReference
     private List<Passenger> passenger;
+
+    @OneToMany(mappedBy = "schedule",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private List<SeatAvailable> seatAvailables = new ArrayList<>();
 }

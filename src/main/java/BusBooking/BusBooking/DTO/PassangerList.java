@@ -1,4 +1,4 @@
-package BusBooking.BusBooking.DTOs;
+package BusBooking.BusBooking.DTO;
 
 import lombok.Data;
 

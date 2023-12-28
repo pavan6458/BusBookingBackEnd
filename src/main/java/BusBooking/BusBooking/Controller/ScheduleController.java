@@ -2,7 +2,7 @@ package BusBooking.BusBooking.Controller;
 
 import BusBooking.BusBooking.DTO.Request.BusSearchReqDto;
 import BusBooking.BusBooking.DTO.Request.ScheduleRegReq;
-import BusBooking.BusBooking.DTOs.ScheduleDTo;
+import BusBooking.BusBooking.DTO.ScheduleDTo;
 import BusBooking.BusBooking.Service.ScheduleService;
 import BusBooking.BusBooking.Utils.ResponseGenerater;
 import lombok.extern.slf4j.Slf4j;
