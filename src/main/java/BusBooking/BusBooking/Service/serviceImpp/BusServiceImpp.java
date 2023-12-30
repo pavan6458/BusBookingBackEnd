@@ -44,6 +44,7 @@ public class BusServiceImpp implements BusService {
         Bus bus = new Bus();
         bus.setId(GenerateId.BuildId());
         bus.setBusType(busRegReq.getBusType());
+        bus.setSeatType(busRegReq.getSeatType());
         bus.setBusName(busRegReq.getBusName());
         bus.setTotalSeats(busRegReq.getTotalSeats());
         BusCompanyAdmin busCompanyAdmin = busCompanyAdminRepository.findById(busRegReq.getAdminID()).orElseThrow(() -> new DataNotFounException("admin not found with id " + busRegReq.getAdminID()));
@@ -63,6 +64,7 @@ public class BusServiceImpp implements BusService {
             BusOperator busOperator = busOperatorRepository.findById(busRegReq.getBusOperator()).orElseThrow(() -> new DataNotFounException("Bus operator not fpund with id " + busRegReq.getBusOperator()));
             bus.setBusType(busRegReq.getBusType());
             bus.setBusName(busRegReq.getBusName());
+            bus.setSeatType(busRegReq.getSeatType());
             bus.setBusOperator(busOperator);
             bus.setTotalSeats(busRegReq.getTotalSeats());
             Bus updatedBus = busRepository.save(bus);
@@ -75,8 +77,7 @@ public class BusServiceImpp implements BusService {
 
     @Override
     public List<BusRegResp> getAllBus(Integer adminId) {
-        BusCompanyAdmin busCompanyAdmin = busCompanyAdminRepository.findById(adminId).orElseThrow(() -> new DataNotFounException("admin not found with id " + adminId));
-        List<Bus> busList = busCompanyAdmin.getBusList();
+        List<Bus> busList = busRepository.findByBusCompanyAdminId(adminId);
         List<BusRegResp> collect = busList.stream().map((list) -> BusTOBusRegResp(list)).collect(Collectors.toList());
         return collect;
     }

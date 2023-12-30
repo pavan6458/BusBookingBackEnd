@@ -1,7 +1,7 @@
 package BusBooking.BusBooking.Service.serviceImpp;
 
-import BusBooking.BusBooking.DTO.Request.BookingRegReq;
 import BusBooking.BusBooking.DTO.Response.BookingRegResp;
+import BusBooking.BusBooking.DTO.BookingDTO;
 import BusBooking.BusBooking.Entity.Booking;
 import BusBooking.BusBooking.Entity.Schedule;
 import BusBooking.BusBooking.Entity.User;
@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -35,30 +34,39 @@ public class BookingServiceImpp implements BookingService {
     }
 
     @Override
-    public BookingRegResp createBooking(BookingRegReq bookingRegReq) {
-        Booking booking = new Booking();
+    public BookingDTO createBooking(BookingDTO bookingDTO) {
+
+        Schedule schedule = scheduleRepository.findById(bookingDTO.getScheduleId())
+                .orElseThrow(() -> new DataNotFounException("Schedule not found with id" + bookingDTO.getScheduleId()));
+        User user = userRepository.findById(bookingDTO.getUserId())
+                .orElseThrow(() -> new DataNotFounException("User not found with id" + bookingDTO.getUserId()));
+        Booking booking = boookingDTOToBooking(bookingDTO);
         booking.setId(GenerateId.BuildId());
-        booking.setStatus(bookingRegReq.getStatus());
-        booking.setTotalPassengers(bookingRegReq.getTotalPassengers());
-        booking.setTotalAmount(bookingRegReq.getTotalAmount());
-        Schedule schedule = scheduleRepository.findById(bookingRegReq.getScheduleId()).orElseThrow(() ->
-                new DataNotFounException("Schedule Not found with id " + bookingRegReq.getScheduleId()));
-        User user = userRepository.findById(bookingRegReq.getUserid()).orElseThrow(() ->
-                new DataNotFounException("user not found with id" + bookingRegReq.getUserid()));
-        booking.setSchedule(schedule);
         booking.setUser(user);
+        booking.setSchedule(schedule);
+
         Booking save = bookingRepository.save(booking);
-        return convertBookingToBookingRegResp(save);
+        return BookingToBookingDTo(save);
+    }
+
+    public BookingDTO BookingToBookingDTo(Booking booking)
+    {
+        return mapper.map(booking,BookingDTO.class);
+    }
+
+    public Booking boookingDTOToBooking(BookingDTO bookingDTO)
+    {
+        return mapper.map(bookingDTO,Booking.class);
     }
 
 
     @Override
     public List<BookingRegResp> getAllBookings(Integer userId) {
-        User user = userRepository.findById(userId).orElseThrow(() -> new DataNotFounException("User not found with id " + userId));
-        List<Booking> booking = user.getBooking();
-        if(booking.size()>0)
+        List<Booking> userBookings = bookingRepository.findByUserId(userId);
+
+        if(userBookings.size()>0)
         {
-            List<BookingRegResp> collect = booking.stream().map((list) -> convertBookingToBookingRegResp(list)).collect(Collectors.toList());
+            List<BookingRegResp> collect = userBookings.stream().map((list) -> convertBookingToBookingRegResp(list)).collect(Collectors.toList());
             return collect;
         }
         else {

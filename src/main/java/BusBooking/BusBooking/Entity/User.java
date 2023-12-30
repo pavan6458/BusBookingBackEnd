@@ -1,24 +1,24 @@
 package BusBooking.BusBooking.Entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Entity
-@Data
+@Setter
+@Getter
 @NoArgsConstructor
-@AllArgsConstructor
 
 @Table(name = "user_master")
-public class User {
+public class User implements Serializable {
     @Id
     private Integer id;
     @Column(name = "user_name")
@@ -41,6 +41,7 @@ public class User {
     private Date updatedDate;
     private String role;
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JsonManagedReference
     private List<Booking> booking = new ArrayList<>();
 
 }

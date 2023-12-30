@@ -13,4 +13,5 @@ public class BusRegReq {
     private String busType;
     private Integer busOperator;
     private Integer adminID;
+        private String seatType;
 }

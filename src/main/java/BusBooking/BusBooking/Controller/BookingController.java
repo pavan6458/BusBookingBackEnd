@@ -1,7 +1,7 @@
 package BusBooking.BusBooking.Controller;
 
-import BusBooking.BusBooking.DTO.Request.BookingRegReq;
 import BusBooking.BusBooking.DTO.Response.BookingRegResp;
+import BusBooking.BusBooking.DTO.BookingDTO;
 import BusBooking.BusBooking.Service.BookingService;
 import BusBooking.BusBooking.Utils.ResponseGenerater;
 import org.springframework.http.HttpStatus;
@@ -20,8 +20,8 @@ public class BookingController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Object> BookTicket(@RequestBody BookingRegReq bookingRegReq){
-        BookingRegResp booking = bookingService.createBooking(bookingRegReq);
+    public ResponseEntity<Object> BookTicket(@RequestBody  BookingDTO BookingDTO){
+        BookingDTO booking = bookingService.createBooking(BookingDTO);
         return ResponseGenerater.ResponseBuilder(HttpStatus.CREATED,"Booked successfully",booking);
     }
 
@@ -37,6 +37,14 @@ public class BookingController {
     {
         BookingRegResp bookingById = bookingService.getBookingById(bookingid);
         return ResponseGenerater.ResponseBuilder(HttpStatus.OK,"Booked fetched successfully",bookingById);
+
+    }
+    @DeleteMapping("/{bookingID}/delete")
+
+    public ResponseEntity<Object> deleteBookingByID(@PathVariable(name="bookingID")Integer bookingID)
+    {
+        BookingRegResp deletedResponse = bookingService.cancaelBookingById(bookingID);
+        return ResponseGenerater.ResponseBuilder(HttpStatus.OK,"Booked cancelled successfully",deletedResponse);
 
     }
 }
