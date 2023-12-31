@@ -16,6 +16,7 @@ BusBooking/BusBooking/DTO/Request/CreateProfileDtoReq.class
 BusBooking/BusBooking/Utils/ResponseGenerater.class
 BusBooking/BusBooking/DTO/Response/UserBasicDto.class
 BusBooking/BusBooking/Entity/User.class
+BusBooking/BusBooking/Config/WebConfig.class
 BusBooking/BusBooking/Repository/BookingRepository.class
 BusBooking/BusBooking/Repository/SeatAvailibleRespository.class
 BusBooking/BusBooking/Service/BusOperatorService.class
