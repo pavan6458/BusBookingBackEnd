@@ -32,6 +32,7 @@
 /home/pavankumar/Documents/gitHubProject/busbookinjavabackend/src/main/java/BusBooking/BusBooking/Config/ProjectSecurityConfig.java
 /home/pavankumar/Documents/gitHubProject/busbookinjavabackend/src/main/java/BusBooking/BusBooking/Exception/DataMissMatchException.java
 /home/pavankumar/Documents/gitHubProject/busbookinjavabackend/src/main/java/BusBooking/BusBooking/DTO/Response/BusRegResp.java
+/home/pavankumar/Documents/gitHubProject/busbookinjavabackend/src/main/java/BusBooking/BusBooking/Config/WebConfig.java
 /home/pavankumar/Documents/gitHubProject/busbookinjavabackend/src/main/java/BusBooking/BusBooking/DTO/Request/BusOperatorDtoReq.java
 /home/pavankumar/Documents/gitHubProject/busbookinjavabackend/src/main/java/BusBooking/BusBooking/Config/BookMyBus.java
 /home/pavankumar/Documents/gitHubProject/busbookinjavabackend/src/main/java/BusBooking/BusBooking/DTO/Request/PassangersRegReq.java
