@@ -37,7 +37,7 @@ public class ProjectSecurityConfig {
                                                                                @Override
                                                                                public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
                                                                                    CorsConfiguration config = new CorsConfiguration();
-                                                                                   config.setAllowedOrigins(Collections.singletonList("*"));
+                                                                                   config.setAllowedOrigins(Collections.singletonList("http://34.227.86.97/"));
                                                                                    config.setAllowedMethods(Collections.singletonList("*"));
                                                                                    config.setAllowCredentials(true);
                                                                                    config.setAllowedHeaders(Collections.singletonList("*"));
@@ -51,6 +51,7 @@ public class ProjectSecurityConfig {
                 )).csrf((csrf) -> csrf.disable())
                 .addFilterAfter(jwtTokenGeneratorFilter, BasicAuthenticationFilter.class)
                 .addFilterBefore(new JWTTokenValidatorFilter(), BasicAuthenticationFilter.class)
+
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/api/user/public/**","/api/admin/public/**").permitAll()
                         .anyRequest().authenticated())
