@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
@@ -58,10 +59,9 @@ public class PassangersServiceImpp implements PassangerService {
                 passenger.setId(GenerateId.BuildId());
                 passenger.setSchedule(schedule);
                 passenger.setBooking(booking);
-
-
                 Passenger objectSaved = passengerRepository.save(passenger);
-                return convertPAssangetTopassangerDTo(objectSaved);
+                return convertPAssangetTopassangerDTo.apply(objectSaved);
+
             }).collect(Collectors.toList());
 
             PassangerDto passangerDto1 = new PassangerDto();
@@ -78,7 +78,7 @@ public class PassangersServiceImpp implements PassangerService {
     @Override
     public List<PassangerList> GetAllSchedulePassangersList(Integer scheduleId) {
         List<Passenger> PassengerList = passengerRepository.findByScheduleId(scheduleId);
-        return PassengerList.stream().map((list)-> convertPAssangetTopassangerDTo(list)).collect(Collectors.toList());
+        return PassengerList.stream().map(convertPAssangetTopassangerDTo).collect(Collectors.toList());
 
 
     }
@@ -86,7 +86,7 @@ public class PassangersServiceImpp implements PassangerService {
     @Override
     public List<PassangerList> getPassangersByBookingId(Integer bookingId) {
         List<Passenger> byBookingId = passengerRepository.findByBookingId(bookingId);
-return    byBookingId.stream().map((list)->convertPAssangetTopassangerDTo(list)).collect(Collectors.toList());
+return    byBookingId.stream().map(convertPAssangetTopassangerDTo).collect(Collectors.toList());
 
     }
 
@@ -96,9 +96,7 @@ return    byBookingId.stream().map((list)->convertPAssangetTopassangerDTo(list))
 
     }
 
-    public PassangerList convertPAssangetTopassangerDTo(Passenger passenger)
-    {
-        return  modelMapper.map(passenger,PassangerList.class);
 
-    }
+
+    Function<Passenger,PassangerList> convertPAssangetTopassangerDTo = p1 -> modelMapper.map(p1,PassangerList.class);
 }

@@ -68,13 +68,14 @@ public class BusOperatorServiceImpp implements BusOperatorService {
     @Override
     public List<BusOperatorDtoResp> getAllBusOperators(Integer id) {
         List<BusOperator> byBusAdminId = busOperatorRepository.findByBusAdminId(id);
-        return byBusAdminId.stream().map((list) -> BusOperatorToBusOperatorDtoResp(list)).collect(Collectors.toList());
+        return byBusAdminId.stream().map(this::BusOperatorToBusOperatorDtoResp).collect(Collectors.toList());
     }
 
     @Override
     public BusOperatorDtoResp getBusOperatorsById(Integer id) {
-        BusOperator busOperator = busOperatorRepository.findById(id).orElseThrow(() -> new DataNotFounException("Bus Operator not found with id " + id));
-        return BusOperatorToBusOperatorDtoResp(busOperator);
+        return  busOperatorRepository.findById(id).map(this::BusOperatorToBusOperatorDtoResp)
+                .orElseThrow(() -> new DataNotFounException("Bus Operator not found with id " + id));
+
     }
 
     @Override
