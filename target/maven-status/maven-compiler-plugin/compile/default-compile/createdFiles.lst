@@ -49,6 +49,7 @@ BusBooking/BusBooking/Repository/BusRepository.class
 BusBooking/BusBooking/DTO/Response/BookingRegResp.class
 BusBooking/BusBooking/BusBookingApplication.class
 BusBooking/BusBooking/Controller/BusOperatorController.class
+BusBooking/BusBooking/Config/Filter/WebConfigCors.class
 BusBooking/BusBooking/DTO/Request/BookingRegReq.class
 BusBooking/BusBooking/DTO/ScheduleDTOBusName.class
 BusBooking/BusBooking/Service/serviceImpp/BusOperatorServiceImpp.class
@@ -70,6 +71,7 @@ BusBooking/BusBooking/Controller/BusController.class
 BusBooking/BusBooking/Entity/Schedule.class
 BusBooking/BusBooking/Exception/ErrorResponse.class
 BusBooking/BusBooking/Controller/PassangersController.class
+BusBooking/BusBooking/Config/Filter/CorsFilter.class
 BusBooking/BusBooking/DTO/Response/LoginDtoResp.class
 BusBooking/BusBooking/Service/serviceImpp/BusCompanyAdminServiceImpp.class
 BusBooking/BusBooking/Entity/BusCompanyAdmin.class
