@@ -37,7 +37,7 @@ public class ProjectSecurityConfig {
                                                                                @Override
                                                                                public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
                                                                                    CorsConfiguration config = new CorsConfiguration();
-                                                                                   config.setAllowedOrigins(Collections.singletonList("http://34.227.86.97/"));
+                                                                                   config.setAllowedOrigins(Collections.singletonList("*"));
                                                                                    config.setAllowedMethods(Collections.singletonList("*"));
                                                                                    config.setAllowCredentials(true);
                                                                                    config.setAllowedHeaders(Collections.singletonList("*"));

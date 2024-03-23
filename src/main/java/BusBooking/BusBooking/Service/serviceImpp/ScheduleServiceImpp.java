@@ -19,6 +19,7 @@ import java.time.ZoneId;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
@@ -52,7 +53,7 @@ public class ScheduleServiceImpp implements ScheduleService {
         schedule.setBusCompanyAdmin(admin);
         Schedule Scheduled = scheduleRepository.save(schedule);
 
-        return convertScheduleToScheduleRegResp(Scheduled);
+        return convertScheduleToScheduleRegResp.apply(Scheduled);
     }
 
     @Override
@@ -68,22 +69,23 @@ public class ScheduleServiceImpp implements ScheduleService {
         Bus bus = busRepository.findById(scheduleRegReq.getBusId()).orElseThrow(() -> new DataNotFounException("bus not found with id " + scheduleRegReq.getBusId()));
         schedule.setBus(bus);
         Schedule save = scheduleRepository.save(schedule);
-        return convertScheduleToScheduleRegResp(save);
+        return convertScheduleToScheduleRegResp.apply(save);
     }
 
     @Override
     public Set<ScheduleDTo> getAllSchedule(Integer adminId) {
         List<Schedule> scheduleList = scheduleRepository.findByBusCompanyAdminId(adminId);
 
-        Set<ScheduleDTo> collect = scheduleList.stream().map((list) -> convertScheduleToScheduleRegResp(list)).collect(Collectors.toSet());
-        return collect;
+        return scheduleList.stream().map(convertScheduleToScheduleRegResp).collect(Collectors.toSet());
     }
+
+
 
     @Override
     public ScheduleDTo getSchudleById(Integer sheduleId) {
         Schedule schedule = scheduleRepository.findById(sheduleId)
                 .orElseThrow(() -> new DataNotFounException("Schedule not found with id" + sheduleId));
-        return convertScheduleToScheduleRegResp(schedule);
+        return convertScheduleToScheduleRegResp.apply(schedule);
     }
 
     @Override
@@ -94,7 +96,7 @@ public class ScheduleServiceImpp implements ScheduleService {
         Optional<Schedule> deletedUser = scheduleRepository.findById(sheduleId);
         if(deletedUser.isEmpty())
         {
-            return convertScheduleToScheduleRegResp(schedule);
+            return convertScheduleToScheduleRegResp.apply(schedule);
         }
         return null;
     }
@@ -102,11 +104,12 @@ public class ScheduleServiceImpp implements ScheduleService {
     @Override
     public Set<ScheduleDTo> searchBus(BusSearchReqDto busSearchReqDto) {
         List<Schedule> searchedBuses = scheduleRepository.findByOriginAndDestinationAndArrivalDate(busSearchReqDto.getOrigin(), busSearchReqDto.getDestination(), busSearchReqDto.getArrivalTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-        Set<ScheduleDTo> collect = searchedBuses.stream().map((items) -> convertScheduleToScheduleRegResp(items)).collect(Collectors.toSet());
+        Set<ScheduleDTo> collect = searchedBuses.stream().map(convertScheduleToScheduleRegResp).collect(Collectors.toSet());
         return collect;
     }
 
-    public ScheduleDTo convertScheduleToScheduleRegResp(Schedule schedule){
-        return mapper.map(schedule,ScheduleDTo.class);
-    }
+    Function<Schedule,ScheduleDTo> convertScheduleToScheduleRegResp = s1 -> mapper.map(s1,ScheduleDTo.class);
+
+
+
 }
